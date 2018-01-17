@@ -57,7 +57,8 @@ namespace MailSender
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
             SchedulerClass sc = new SchedulerClass();
-        
+            string strLogin = cbSenderSelect.Text;
+            string strPassword = cbSenderSelect.SelectedValue.ToString();
             TimeSpan tsSendTime = sc.GetSendTime(tbTimePicker.Text);
             if (tsSendTime == new TimeSpan()) // Проверка на то что поле не равно 00:00:00
             {
@@ -82,7 +83,7 @@ namespace MailSender
                 error.Show();
                 return;
             }
-            EmailSendServiceClass emailSender = new EmailSendServiceClass(cbSenderSelect.Text, cbSenderSelect.SelectedValue.ToString(), this);
+            EmailSendServiceClass emailSender = new EmailSendServiceClass(strLogin, strPassword, this);
             sc.SendEmails(dtSenDateTime, emailSender, (IQueryable<Emails>)dgEmails.ItemsSource);
         }
 
@@ -96,7 +97,7 @@ namespace MailSender
                 return;
             }
             EmailSendServiceClass emailSender = new EmailSendServiceClass(strLogin,strPassword,this);
-            emailSender.SendMails((IQueryable<Emails>) dgEmails.DataContext);
+            emailSender.Send(HeaderText.Text, FullText.Text);
         }
 
         private void btnGoToScheduler_Click(object sender, RoutedEventArgs e)
