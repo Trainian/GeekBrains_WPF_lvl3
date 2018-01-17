@@ -1,0 +1,22 @@
+﻿<Window x:Class="MailSender.SendErrorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MailSender"
+        mc:Ignorable="d"
+        Title="SendErrorWindow" Height="250" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label x:Name="ISendEnd"
+               Content="Произошла ошибка" Foreground="Red" FontWeight="Bold"
+               HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  VerticalAlignment="Bottom"
+               FontSize="24" Margin="15"/>
+        <TextBlock x:Name="errorMessage" Grid.Row="1" TextWrapping="Wrap" Margin="10"></TextBlock>
+        <Button Width="120" Height="30" Margin="15" Grid.Row="2" VerticalAlignment="Top"  x:Name="btnOK" Content="OK" Click="btnOK_Click"></Button>
+    </Grid>
+</Window>
