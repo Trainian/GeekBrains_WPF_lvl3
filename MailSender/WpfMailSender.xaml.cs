@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
 using System.Net.Mail;
+using EmailSendServiceDLL;
 
 namespace MailSender
 {
@@ -23,30 +24,35 @@ namespace MailSender
     /// </summary>
     public partial class WpfMailSender : Window
     {
+        EmailSendService emailSender; // Экземпляр класса, отвечающего за отправку писем
         public WpfMailSender()
         {
             InitializeComponent();
-            cbSenderSelect.ItemsSource = VariableClass.Senders;
-            cbSenderSelect.DisplayMemberPath = "Key";
-            cbSenderSelect.SelectedValue = "Value";
-            cbSmtpPostSelect.ItemsSource = SmtpPortClass.Ports;
-            cbSmtpPostSelect.DisplayMemberPath = "Key";
-            cbSmtpPostSelect.SelectedValue = "Value";
+            changeMenuControlSender.ItemSource = VariableClass.Senders;
+            changeMenuControlSender.DisplayMemberPath = "Key";
+            changeMenuControlSender.SelectedValue = "Value";
+            changeMenuControlSMTP.ItemSource = SmtpPortClass.Ports;
+            changeMenuControlSMTP.DisplayMemberPath = "Key";
+            changeMenuControlSMTP.SelectedValue = "Value";
             DBClass db = new DBClass();
             dgEmails.ItemsSource = db.Emails;
+            tscTabSwitcher.IsHideBtnPrevios = true;
         }
         
         private void ButtonSend_Click(object sender, RoutedEventArgs e) //Отправка письма из вкладки "Редактор писем"
         {
-            string Login = cbSenderSelect.Text;
-            string Password = cbSenderSelect.SelectedValue.ToString();
+            string Login = changeMenuControlSender.DisplayMemberPath;
+            string Password = changeMenuControlSender.SelectedValue;
             if (string.IsNullOrEmpty(Login) || string.IsNullOrEmpty(Password))
             {
                 SendErrorWindow sendError = new SendErrorWindow(new Exception("Не заполнено поле Логин или Пароль"));
                 return;
             }
-            EmailSendServiceClass sendMail = new EmailSendServiceClass(Login,Password, this);
-            sendMail.SendMails((IQueryable<Emails>)dgEmails.ItemsSource);
+            EmailSendService sendMail = new EmailSendService(Login,Password,AppConfigClass.smtpPort,AppConfigClass.smtpServer);
+            foreach (Emails email in dgEmails.ItemsSource)
+            {
+                sendMail.Send(email.Email, email.Name);
+            }
         }
 
         private void miClose_Click(object sender, RoutedEventArgs e)
@@ -57,8 +63,8 @@ namespace MailSender
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
             SchedulerClass sc = new SchedulerClass();
-            string strLogin = cbSenderSelect.Text;
-            string strPassword = cbSenderSelect.SelectedValue.ToString();
+            string strLogin = changeMenuControlSender.DisplayMemberPath;
+            string strPassword = changeMenuControlSender.SelectedValue;
             TimeSpan tsSendTime = sc.GetSendTime(tbTimePicker.Text);
             if (tsSendTime == new TimeSpan()) // Проверка на то что поле не равно 00:00:00
             {
@@ -83,26 +89,35 @@ namespace MailSender
                 error.Show();
                 return;
             }
-            EmailSendServiceClass emailSender = new EmailSendServiceClass(strLogin, strPassword, this);
             sc.SendEmails(dtSenDateTime, emailSender, (IQueryable<Emails>)dgEmails.ItemsSource);
         }
 
         private void btnSendAtOnce_Click(object sender, RoutedEventArgs e)
         {
-            string strLogin = cbSenderSelect.Text;
-            string strPassword = cbSenderSelect.SelectedValue.ToString();
+            string strLogin = changeMenuControlSender.DisplayMemberPath;
+            string strPassword = changeMenuControlSender.SelectedValue;
             if (string.IsNullOrEmpty(strLogin) || string.IsNullOrEmpty(strPassword))
             {
                 SendErrorWindow err = new SendErrorWindow(new Exception("Не задан Логин или Пароль"));
                 return;
             }
-            EmailSendServiceClass emailSender = new EmailSendServiceClass(strLogin,strPassword,this);
-            emailSender.Send(HeaderText.Text, FullText.Text);
+            EmailSendService sendMail = new EmailSendService(strLogin, strPassword, AppConfigClass.smtpPort, AppConfigClass.smtpServer);
+            sendMail.Send(HeaderText.Text, FullText.Text);
         }
 
         private void btnGoToScheduler_Click(object sender, RoutedEventArgs e)
         {
             schedular.Focus();
+        }
+
+        private void tscTabSwitcher_btnNextClick(object sender, RoutedEventArgs e)
+        {
+            tbControl.SelectedIndex = 1;
+        }
+
+        private void tscTabSwitcher_btnPreviosClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

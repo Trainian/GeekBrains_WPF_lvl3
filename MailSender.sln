@@ -1,9 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSender", "MailSender\MailSender.csproj", "{F6FD9E72-3EA0-4ED4-9667-B943CB20A5C1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0E3FFD8D-14D9-45C0-AC24-829C9AE281C5} = {0E3FFD8D-14D9-45C0-AC24-829C9AE281C5}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabSwitcherElement", "TabSwitcher\TabSwitcherElement.csproj", "{0E3FFD8D-14D9-45C0-AC24-829C9AE281C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodePasswordDLL", "..\CodePasswordDLL\CodePasswordDLL\CodePasswordDLL.csproj", "{06FD3F82-47BE-45A3-A773-71CB9D9B57B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSendServiceDLL", "EmailSendServiceDLL\EmailSendServiceDLL.csproj", "{027B2196-25C9-4947-91E6-8C0B602E6639}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangeMenuElement", "ChangeMenu\ChangeMenuElement.csproj", "{4E60A69F-F10D-4E3B-B3C1-9567ECD588D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +26,27 @@ Global
 		{F6FD9E72-3EA0-4ED4-9667-B943CB20A5C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6FD9E72-3EA0-4ED4-9667-B943CB20A5C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6FD9E72-3EA0-4ED4-9667-B943CB20A5C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E3FFD8D-14D9-45C0-AC24-829C9AE281C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E3FFD8D-14D9-45C0-AC24-829C9AE281C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E3FFD8D-14D9-45C0-AC24-829C9AE281C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E3FFD8D-14D9-45C0-AC24-829C9AE281C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06FD3F82-47BE-45A3-A773-71CB9D9B57B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06FD3F82-47BE-45A3-A773-71CB9D9B57B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06FD3F82-47BE-45A3-A773-71CB9D9B57B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06FD3F82-47BE-45A3-A773-71CB9D9B57B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{027B2196-25C9-4947-91E6-8C0B602E6639}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{027B2196-25C9-4947-91E6-8C0B602E6639}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{027B2196-25C9-4947-91E6-8C0B602E6639}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{027B2196-25C9-4947-91E6-8C0B602E6639}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E60A69F-F10D-4E3B-B3C1-9567ECD588D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E60A69F-F10D-4E3B-B3C1-9567ECD588D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E60A69F-F10D-4E3B-B3C1-9567ECD588D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E60A69F-F10D-4E3B-B3C1-9567ECD588D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {017882B3-1200-4A14-BEEB-3F9FFB50D74F}
 	EndGlobalSection
 EndGlobal

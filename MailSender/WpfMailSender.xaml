@@ -2,10 +2,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:MailSender"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:tabSwitcher="clr-namespace:TabSwitcher;assembly=TabSwitcherDLL"
+    xmlns:changeMenu="clr-namespace:ChangeMenu;assembly=ChangeMenu"
     x:Class="MailSender.WpfMailSender"
     Width="720"
     Height="450"
@@ -30,36 +31,13 @@
                 <Grid Background="#FFE5E5E5">
                     <ToolBarTray VerticalAlignment="Top" Height="65"  >
                         <ToolBar x:Name="tbSender" Height="30">
-                            <Label x:Name="iSender"  Content="Выбрать отправителя" Height="25" VerticalAlignment="Top" Width="130" HorizontalAlignment="Left"/>
-                            <ComboBox x:Name="cbSenderSelect"  Height="25" VerticalAlignment="Top" Width="250" SelectedIndex="0" ToolTip="Выбрать email отправителя" HorizontalAlignment="Left" MinHeight="0"/>
-                            <Button x:Name="btnAddSender"  Height="25" Width="25" MinWidth="0" MinHeight="0" ToolTip="Добавить">
-                                <Image Source="Images/Add.png"/>
-                            </Button>
-                            <Button x:Name="brnEditSender" Height="25" Width="25" MinWidth="0" MinHeight="0" ToolTip="Редактировать">
-                                <Image Source="Images/Pencil.png"/>
-                            </Button>
-                            <Button x:Name="btnDeleteSender" Height="25" Width="25" MinWidth="0" MinHeight="0" ToolTip="Удалить">
-                                <Image Source="Images/Delete.png"/>
-                            </Button>
+                            <changeMenu:ChangeMenuControl x:Name="changeMenuControlSender" HorizontalAlignment="Left" VerticalAlignment="Top" Width="455" MenuName="Выбрать отправителя" SelectedValue=""/>
                         </ToolBar>
                         <ToolBar Height="30">
-                            <Label Content="Перейти в планировщик" />
-                            <Button Height="25" Width="25" MinHeight="0" MinWidth="0" Margin="15,0,0,0" x:Name="btnGoToScheduler" Click="btnGoToScheduler_Click">
-                                <Image Source="Images/Clock.png"/>
-                            </Button>
+                            <tabSwitcher:TabSwitcherControl x:Name="tscTabSwitcher" btnPreviosClick="tscTabSwitcher_btnPreviosClick" btnNextClick="tscTabSwitcher_btnNextClick" IsHideBtnPrevios="True" />
                         </ToolBar>
                         <ToolBar Band="1" Height="30">
-                            <Label Content="Выбрать smtp-server" Height="25" VerticalAlignment="Top" Width="130" HorizontalAlignment="Left"/>
-                            <ComboBox x:Name="cbSmtpPostSelect" Height="25" VerticalAlignment="Top" Width="250" SelectedIndex="0" ToolTip="Выбрать email отправителя" HorizontalAlignment="Left" MinHeight="0"/>
-                            <Button Width="25" Height="25" MinHeight="0" MinWidth="0">
-                                <Image Source="Images/Add.png"/>
-                            </Button>
-                            <Button Width="25" Height="25" MinHeight="0" MinWidth="0">
-                                <Image Source="Images/Pencil.png"/>
-                            </Button>
-                            <Button Width="25" Height="25" MinHeight="0" MinWidth="0">
-                                <Image Source="Images/Delete.png"/>
-                            </Button>
+                            <changeMenu:ChangeMenuControl x:Name="changeMenuControlSMTP" HorizontalAlignment="Left" VerticalAlignment="Top" Width="455" MenuName="Выбрать SMTP-сервер" SelectedValue=""/>
                         </ToolBar>
                         <ToolBar Band="1" Height="30">
                             <Label Content="Список адресатов" />
@@ -79,6 +57,10 @@
             </TabItem>
             <TabItem Header="Планировщик" x:Name="schedular">
                 <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="57*"/>
+                        <ColumnDefinition Width="119*"/>
+                    </Grid.ColumnDefinitions>
                     <Calendar x:Name="cldSchedulDateTimes" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionMode="MultipleRange"/>
                     <dxe:TextEdit Grid.Column="0" x:Name="tbTimePicker" Height="23"  HorizontalAlignment="Left" Margin="0,168,0,0" VerticalAlignment="Top" Width="179" IsReadOnly="False" MaskUseAsDisplayFormat="True" MaskType="RegEx" Mask="(0?\d|1\d|2[0-3]):[0-5]\d:[0-5]\d" Text="0:00:00"/>
                     <Button x:Name="btnSend" HorizontalAlignment="Left" Margin="0,191,0,0" VerticalAlignment="Top" Width="179" Height="25" Click="btnSend_Click">
@@ -93,7 +75,7 @@
                             <Label Margin="3,0,0,0" Content="Отправить сразу"/>
                         </StackPanel>
                     </Button>
-                    <RichTextBox Margin="184,3,0,0"/>
+                    <RichTextBox Margin="184,3,0,-0.2" Grid.ColumnSpan="2"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Редактор писем" x:Name="EditorOfLetters">
@@ -106,8 +88,13 @@
                 </DockPanel>
             </TabItem>
             <TabItem Header="Статистика">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>
 </Window>
+
+
+

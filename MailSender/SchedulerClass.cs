@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Windows.Forms;
+using EmailSendServiceDLL;
 
 namespace MailSender
 {
@@ -15,7 +16,7 @@ namespace MailSender
     class SchedulerClass
     {
         DispatcherTimer timer = new DispatcherTimer(); // Таймер
-        EmailSendServiceClass emailSender; // Экземпляр класса, отвечающего за отправку писем
+        EmailSendService emailSender; // Экземпляр класса, отвечающего за отправку писем
         DateTime dtSend; // дата и время отправки
         IQueryable<Emails> emails; // коллекция email адрессов
 
@@ -40,7 +41,7 @@ namespace MailSender
         /// <param name="dtSend"></param>
         /// <param name="emailSender"></param>
         /// <param name="emails"></param>
-        public void SendEmails(DateTime dtSend, EmailSendServiceClass emailSender, IQueryable<Emails> emails)
+        public void SendEmails(DateTime dtSend, EmailSendService emailSender, IQueryable<Emails> emails)
         {
             this.emailSender = emailSender;
             this.emails = emails;
@@ -53,7 +54,10 @@ namespace MailSender
         {
             if (dtSend.ToShortTimeString() == DateTime.Now.ToShortTimeString())
             {
-                emailSender.SendMails(emails);
+                foreach (Emails email in emails)
+                {
+                    emailSender.Send(email.Email, email.Name);
+                }
                 timer.Stop();
                 SendEndWindow endWindow = new SendEndWindow();
                 endWindow.Show();
