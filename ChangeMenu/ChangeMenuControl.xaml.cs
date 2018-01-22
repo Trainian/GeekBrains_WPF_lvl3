@@ -27,8 +27,11 @@ namespace ChangeMenu
 
         public string MenuName { get => iSender.Content.ToString(); set => iSender.Content = value; }
         public IEnumerable ItemSource { get => cbSenderSelect.ItemsSource; set => cbSenderSelect.ItemsSource = value; }
-        public string DisplayMemberPath { get => cbSenderSelect.DisplayMemberPath.ToString(); set => cbSenderSelect.DisplayMemberPath = value; }
-        public string SelectedValue { get => cbSenderSelect.SelectedValue.ToString(); set => cbSenderSelect.SelectedValue = value; }
+        public string DisplayMemberPath { get => cbSenderSelect.DisplayMemberPath; set => cbSenderSelect.DisplayMemberPath = value; }
+        /// <summary>
+        /// Тут возвращается KeyValuePair T1,T2 
+        /// </summary>
+        public object SelectedItem { get => cbSenderSelect.SelectedItem.ToString(); set => cbSenderSelect.SelectedItem = value; }
 
         public ChangeMenuControl()
         {

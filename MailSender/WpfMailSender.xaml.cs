@@ -30,10 +30,8 @@ namespace MailSender
             InitializeComponent();
             changeMenuControlSender.ItemSource = VariableClass.Senders;
             changeMenuControlSender.DisplayMemberPath = "Key";
-            changeMenuControlSender.SelectedValue = "Value";
             changeMenuControlSMTP.ItemSource = SmtpPortClass.Ports;
             changeMenuControlSMTP.DisplayMemberPath = "Key";
-            changeMenuControlSMTP.SelectedValue = "Value";
             DBClass db = new DBClass();
             dgEmails.ItemsSource = db.Emails;
             tscTabSwitcher.IsHideBtnPrevios = true;
@@ -41,14 +39,15 @@ namespace MailSender
         
         private void ButtonSend_Click(object sender, RoutedEventArgs e) //Отправка письма из вкладки "Редактор писем"
         {
-            string Login = changeMenuControlSender.DisplayMemberPath;
-            string Password = changeMenuControlSender.SelectedValue.ToString();
-            if (string.IsNullOrEmpty(Login) || string.IsNullOrEmpty(Password))
+            KeyValuePair<string, string> mySelectedItem = (KeyValuePair<string, string>)changeMenuControlSender.SelectedItem;
+            string strLogin = mySelectedItem.Key;
+            string strPassword = mySelectedItem.Value;
+            if (string.IsNullOrEmpty(strLogin) || string.IsNullOrEmpty(strPassword))
             {
                 SendErrorWindow sendError = new SendErrorWindow(new Exception("Не заполнено поле Логин или Пароль"));
                 return;
             }
-            EmailSendService sendMail = new EmailSendService(Login,Password,AppConfigClass.smtpPort,AppConfigClass.smtpServer);
+            EmailSendService sendMail = new EmailSendService(strLogin, strPassword, AppConfigClass.smtpPort,AppConfigClass.smtpServer);
             foreach (Emails email in dgEmails.ItemsSource)
             {
                 sendMail.Send(email.Email, email.Name);
@@ -63,8 +62,9 @@ namespace MailSender
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
             SchedulerClass sc = new SchedulerClass();
-            string strLogin = changeMenuControlSender.DisplayMemberPath;
-            string strPassword = changeMenuControlSender.SelectedValue.ToString();
+            KeyValuePair<string, string> mySelectedItem = (KeyValuePair<string,string>)changeMenuControlSender.SelectedItem;
+            string strLogin = mySelectedItem.Key;
+            string strPassword = mySelectedItem.Value;
             TimeSpan tsSendTime = sc.GetSendTime(tbTimePicker.Text);
             if (tsSendTime == new TimeSpan()) // Проверка на то что поле не равно 00:00:00
             {
@@ -94,8 +94,9 @@ namespace MailSender
 
         private void btnSendAtOnce_Click(object sender, RoutedEventArgs e)
         {
-            string strLogin = changeMenuControlSender.DisplayMemberPath;
-            string strPassword = changeMenuControlSender.SelectedValue.ToString();
+            KeyValuePair<string, string> mySelectedItem = (KeyValuePair<string, string>)changeMenuControlSender.SelectedItem;
+            string strLogin = mySelectedItem.Key;
+            string strPassword = mySelectedItem.Value;
             if (string.IsNullOrEmpty(strLogin) || string.IsNullOrEmpty(strPassword))
             {
                 SendErrorWindow err = new SendErrorWindow(new Exception("Не задан Логин или Пароль"));
