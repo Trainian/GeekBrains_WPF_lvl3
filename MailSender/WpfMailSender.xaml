@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:tabSwitcher="clr-namespace:TabSwitcher;assembly=TabSwitcherDLL"
     xmlns:changeMenu="clr-namespace:ChangeMenu;assembly=ChangeMenu"
@@ -14,9 +13,8 @@
     Title="MailSender" Icon="Images/main.png" WindowStartupLocation="Manual">
 
     <Window.Resources>
-        <sys:String x:Key="strBtn">Кнопочка!</sys:String>
     </Window.Resources>
-    <Grid>
+    <Grid Background="AliceBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition/>
@@ -26,7 +24,7 @@
                 <MenuItem x:Name="miClose"  Header="Закрыть" Click="miClose_Click"/>
             </MenuItem>
         </Menu>
-        <TabControl Grid.RowSpan="2" x:Name="tbControl" Grid.ColumnSpan="2" Margin="0,0,-0.4,0">
+        <TabControl Grid.Row="1" x:Name="tbControl" Grid.ColumnSpan="2" Margin="0,0,-0.4,0">
             <TabItem Header="Формирование группы рассылки">
                 <Grid Background="#FFE5E5E5">
                     <ToolBarTray VerticalAlignment="Top" Height="65"  >
@@ -37,7 +35,7 @@
                             <tabSwitcher:TabSwitcherControl x:Name="tscTabSwitcher" btnPreviosClick="tscTabSwitcher_btnPreviosClick" btnNextClick="tscTabSwitcher_btnNextClick" IsHideBtnPrevios="True" />
                         </ToolBar>
                         <ToolBar Band="1" Height="30">
-                            <changeMenu:ChangeMenuControl x:Name="changeMenuControlSMTP" HorizontalAlignment="Left" VerticalAlignment="Top" Width="455" MenuName="Выбрать SMTP-сервер"/>
+                            <changeMenu:ChangeMenuControl x:Name="changeMenuControlSmtp" HorizontalAlignment="Left" VerticalAlignment="Top" Width="455" MenuName="Выбрать SMTP-сервер"/>
                         </ToolBar>
                         <ToolBar Band="1" Height="30">
                             <Label Content="Список адресатов" />
@@ -57,34 +55,30 @@
             </TabItem>
             <TabItem Header="Планировщик" x:Name="schedular">
                 <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="57*"/>
-                        <ColumnDefinition Width="119*"/>
-                    </Grid.ColumnDefinitions>
                     <Calendar x:Name="cldSchedulDateTimes" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionMode="MultipleRange"/>
                     <dxe:TextEdit Grid.Column="0" x:Name="tbTimePicker" Height="23"  HorizontalAlignment="Left" Margin="0,168,0,0" VerticalAlignment="Top" Width="179" IsReadOnly="False" MaskUseAsDisplayFormat="True" MaskType="RegEx" Mask="(0?\d|1\d|2[0-3]):[0-5]\d:[0-5]\d" Text="0:00:00"/>
-                    <Button x:Name="btnSend" HorizontalAlignment="Left" Margin="0,191,0,0" VerticalAlignment="Top" Width="179" Height="25" Click="btnSend_Click">
+                    <Button Grid.Column="0" x:Name="btnSend" HorizontalAlignment="Left" Margin="0,191,0,0" VerticalAlignment="Top" Width="179" Height="25" Click="btnSend_Click">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Images/clock.png" Width="16" Height="16"/>
                             <Label Margin="3,0,0,0" Content="Отправить запланированно"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="btnSendAtOnce" HorizontalAlignment="Left" Margin="0,221,0,0" VerticalAlignment="Top" Width="179" Height="25" Click="btnSendAtOnce_Click">
+                    <Button Grid.Column="0" x:Name="btnSendAtOnce" HorizontalAlignment="Left" Margin="0,221,0,0" VerticalAlignment="Top" Width="179" Height="25" Click="btnSendAtOnce_Click">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Images/main.png" Width="16" Height="16"/>
                             <Label Margin="3,0,0,0" Content="Отправить сразу"/>
                         </StackPanel>
                     </Button>
-                    <RichTextBox Margin="184,3,0,-0.2" Grid.ColumnSpan="2"/>
+                    <RichTextBox Margin="184,3,0,-0.2"  Grid.Column="0" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Редактор писем" x:Name="EditorOfLetters">
+            <TabItem Header="Редактор писем" x:Name="editorOfLetters">
                 <DockPanel Background="#FFE5E5E5">
                     <Label Margin="5" DockPanel.Dock="Top" Foreground="Black" HorizontalContentAlignment="Center" Content="Заголовок"/>
-                    <TextBox Margin="10" DockPanel.Dock="Top"  x:Name="HeaderText" MinHeight="25" />
+                    <TextBox Margin="10" DockPanel.Dock="Top"  x:Name="headerText" MinHeight="25" />
                     <Label Margin="5" DockPanel.Dock="Top" Foreground="Black" HorizontalContentAlignment="Center" Content="Текст письма"/>
                     <Button DockPanel.Dock="Bottom" Margin="15" Click="ButtonSend_Click" Content="Send" Height="30" Width="150"/>
-                    <TextBox Margin="10" x:Name="FullText" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" AcceptsTab="True"/>
+                    <TextBox Margin="10" x:Name="fullText" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" AcceptsTab="True"/>
                 </DockPanel>
             </TabItem>
             <TabItem Header="Статистика">

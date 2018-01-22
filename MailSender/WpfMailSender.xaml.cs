@@ -30,8 +30,8 @@ namespace MailSender
             InitializeComponent();
             changeMenuControlSender.ItemSource = VariableClass.Senders;
             changeMenuControlSender.DisplayMemberPath = "Key";
-            changeMenuControlSMTP.ItemSource = SmtpPortClass.Ports;
-            changeMenuControlSMTP.DisplayMemberPath = "Key";
+            changeMenuControlSmtp.ItemSource = SmtpPortClass.Ports;
+            changeMenuControlSmtp.DisplayMemberPath = "Key";
             DBClass db = new DBClass();
             dgEmails.ItemsSource = db.Emails;
             tscTabSwitcher.IsHideBtnPrevios = true;
@@ -81,9 +81,9 @@ namespace MailSender
                 error.Show();
                 return;
             }
-            if (string.IsNullOrEmpty(HeaderText.Text) || string.IsNullOrEmpty(FullText.Text))
+            if (string.IsNullOrEmpty(headerText.Text) || string.IsNullOrEmpty(fullText.Text))
             {
-                EditorOfLetters.Focus();
+                editorOfLetters.Focus();
                 SendErrorWindow error = new SendErrorWindow(new Exception("Заголовок и текст письма, не должны быть пустыми."));
                 error.Owner = this;
                 error.Show();
@@ -103,7 +103,7 @@ namespace MailSender
                 return;
             }
             EmailSendService sendMail = new EmailSendService(strLogin, strPassword, AppConfigClass.smtpPort, AppConfigClass.smtpServer);
-            sendMail.Send(HeaderText.Text, FullText.Text);
+            sendMail.Send(headerText.Text, fullText.Text);
         }
 
         private void tscTabSwitcher_btnNextClick(object sender, RoutedEventArgs e)
