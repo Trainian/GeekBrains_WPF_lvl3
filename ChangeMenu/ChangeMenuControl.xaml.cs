@@ -27,8 +27,8 @@ namespace ChangeMenu
 
         public string MenuName { get => iSender.Content.ToString(); set => iSender.Content = value; }
         public IEnumerable ItemSource { get => cbSenderSelect.ItemsSource; set => cbSenderSelect.ItemsSource = value; }
-        public string DisplayMemberPath { get => cbSenderSelect.DisplayMemberPath; set => cbSenderSelect.DisplayMemberPath = value; }
-        public string SelectedValue { get => (string) cbSenderSelect.SelectedValue; set => cbSenderSelect.SelectedValue = value; }
+        public string DisplayMemberPath { get => cbSenderSelect.DisplayMemberPath.ToString(); set => cbSenderSelect.DisplayMemberPath = value; }
+        public string SelectedValue { get => cbSenderSelect.SelectedValue.ToString(); set => cbSenderSelect.SelectedValue = value; }
 
         public ChangeMenuControl()
         {

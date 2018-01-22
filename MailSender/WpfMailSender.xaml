@@ -31,13 +31,13 @@
                 <Grid Background="#FFE5E5E5">
                     <ToolBarTray VerticalAlignment="Top" Height="65"  >
                         <ToolBar x:Name="tbSender" Height="30">
-                            <changeMenu:ChangeMenuControl x:Name="changeMenuControlSender" HorizontalAlignment="Left" VerticalAlignment="Top" Width="455" MenuName="Выбрать отправителя" SelectedValue=""/>
+                            <changeMenu:ChangeMenuControl x:Name="changeMenuControlSender" HorizontalAlignment="Left" VerticalAlignment="Top" Width="455" MenuName="Выбрать отправителя"/>
                         </ToolBar>
                         <ToolBar Height="30">
                             <tabSwitcher:TabSwitcherControl x:Name="tscTabSwitcher" btnPreviosClick="tscTabSwitcher_btnPreviosClick" btnNextClick="tscTabSwitcher_btnNextClick" IsHideBtnPrevios="True" />
                         </ToolBar>
                         <ToolBar Band="1" Height="30">
-                            <changeMenu:ChangeMenuControl x:Name="changeMenuControlSMTP" HorizontalAlignment="Left" VerticalAlignment="Top" Width="455" MenuName="Выбрать SMTP-сервер" SelectedValue=""/>
+                            <changeMenu:ChangeMenuControl x:Name="changeMenuControlSMTP" HorizontalAlignment="Left" VerticalAlignment="Top" Width="455" MenuName="Выбрать SMTP-сервер"/>
                         </ToolBar>
                         <ToolBar Band="1" Height="30">
                             <Label Content="Список адресатов" />
@@ -88,9 +88,7 @@
                 </DockPanel>
             </TabItem>
             <TabItem Header="Статистика">
-                <Grid Background="#FFE5E5E5">
-                    
-                </Grid>
+                <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>
     </Grid>

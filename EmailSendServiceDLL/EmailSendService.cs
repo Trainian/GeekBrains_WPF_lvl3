@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace EmailSendServiceDLL
 {
@@ -21,6 +16,10 @@ namespace EmailSendServiceDLL
         public EmailSendService(string login, string pass, int smtpPort,
             string smtpServer) // Wind - зависимость от главного окна
         {
+            //Тесты на правильность заполнения значений
+            if (string.IsNullOrEmpty(login)) throw new ArgumentNullException(nameof(login));
+            if (string.IsNullOrEmpty(pass)) throw new ArgumentNullException(nameof(pass));
+            //Заполняем поля
             Login = login;
             Password = pass;
             SmtpPort = smtpPort;
@@ -35,6 +34,8 @@ namespace EmailSendServiceDLL
         /// <returns></returns>
         public string Send(string mail, string name) // Отправка письма
         {
+            //Тесты на правильность заданного значения mail
+            if(string.IsNullOrEmpty(mail)) throw new ArgumentNullException(nameof(mail));
             using (MailMessage mm = new MailMessage(Login, mail))
             {
                 mm.Subject = HeaderText;
@@ -53,7 +54,7 @@ namespace EmailSendServiceDLL
                     }
                     catch (Exception ex)
                     {
-                        return ex.Message.ToString();
+                        return ex.Message;
                     }
                 }
             }
